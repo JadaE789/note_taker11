@@ -1,4 +1,4 @@
-const note_data = require("../db/note_data");
+const note_data = require("../02-Homework/Develop/db/note_data");
 //const router = require("express").Router();
 // exporting html paths
 module.exports = function(app) {
