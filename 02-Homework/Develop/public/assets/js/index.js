@@ -10,7 +10,7 @@ let activeNote = {};
 // A function for getting all notes from the db
 const getNotes = function() {
   return $.ajax({
-    url: '/api/notes',
+    url: 'file:///C:/Users/Jada/Documents/gwubootcamp/homework/note_taker11/02-Homework/Develop/public/notes.html',
     method: 'GET',
   });
 };
@@ -18,7 +18,7 @@ const getNotes = function() {
 // A function for saving a note to the db
 const saveNote = function(note) {
   return $.ajax({
-    url: '/api/notes',
+    url: 'file:///C:/Users/Jada/Documents/gwubootcamp/homework/note_taker11/02-Homework/Develop/public/notes.html',
     data: note,
     method: 'POST',
   });
@@ -27,7 +27,7 @@ const saveNote = function(note) {
 // A function for deleting a note from the db
 const deleteNote = function(id) {
   return $.ajax({
-    url: `api/notes/${id}`,
+    url: `file:///C:/Users/Jada/Documents/gwubootcamp/homework/note_taker11/02-Homework/Develop/public/notes.html`,
     method: 'DELETE',
   });
 };
