@@ -1,21 +1,33 @@
-const note_data = require("../02-Homework/Develop/db/note_data");
-//const router = require("express").Router();
-// exporting html paths
-module.exports = function(app) {
+const fs = require("fs")
+//const uuid = require("uuid")
+const { v4: uuid } = require('uuid')
+const path = require("path")
 
-    app.get("/api/notes/", function(req,res) {
-        res.json(note_data);
-    });
-    
-    app.post("/api/notes/", function(req,res) {
-        note_data.push(req.body);
-        res.json(true);
-    })
+//API for renderning  notes stored on db
+module.exports = function(app){
+app.get("/api/notes", (req, res) => res.sendFile(path.join(__dirname, "../db/db.json")))
 
-    app.delete("/api/notes/", function(req,res) {
-        note_data.length = 0;
+ //API for storing user added note and renderning updated  notes stored on db.json
+ app.post("/api/notes", (req, res) => {
+     let newNote ={
+         //UUID generates unique id
+         id:uuid(),
+         title:req.body.title,
+         text:req.body.text
+     };
+     let oldNote =JSON.parse(fs.readFileSync(path.join(__dirname,"../db/db.json"),"utf-8")) 
+     oldNote.push(newNote)
+     fs.writeFileSync("./db/db.json",JSON.stringify(oldNote))
+     res.json(oldNote)
+ })
 
-        res.json({ok: true});
-    })
-
-};
+ 
+ //Receive a query parameter containing the id of a note to delete.
+ app.delete("/api/notes/:id", (req, res) => {
+     let choosen = req.params.id
+     let oldNote =JSON.parse(fs.readFileSync(path.join(__dirname,"../db/db.json"),"utf-8"))
+     const newNote =oldNote.filter(oldNote=>oldNote.id != choosen)
+     fs.writeFileSync("./db/db.json",JSON.stringify(newNote))
+     res.send(newNote)
+ })
+}

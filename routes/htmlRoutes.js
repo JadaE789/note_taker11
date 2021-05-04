@@ -1,17 +1,18 @@
-const path = require("path");
-//const router = require("express").Router();
-// exporting html paths
+const path = require('path');
+
 module.exports = function(app) {
-    
-    
-    app.get("/notes", function(req,res) {
-        res.sendFile(path.join(__dirname, "../public/notes.html"));
-    });
+  // HTML GET Requests
+  // Below code handles when users "visit" a page.
+  app.get('/notes', function(req, res) {
+    res.sendFile(path.join(__dirname, './02-Homework/Develop/public/notes.html'));
+  });
 
-   // set index.html as default page
-   
-   app.get("*", function(req,res) {
-       res.sendFile(path.join(__dirname, "../public/index.html"));
-     });
+  app.get('/', function(req, res) {
+    res.sendFile(path.join(__dirname, './02-Homework/Develop/public/index.html'));
+  });
 
+  // If no matching route is found default to index
+  app.get('*', function(req, res) {
+    res.sendFile(path.join(__dirname, './02-Homework/Develop/public/index.html'));
+  });
 };
